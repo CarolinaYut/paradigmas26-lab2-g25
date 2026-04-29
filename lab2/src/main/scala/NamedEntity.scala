@@ -54,27 +54,12 @@ class ProgrammingLanguage extends Technology (val text:String){
 }
 
 // =====================================================================
-// TODO (Ejercicio 1): Completar la jerarquía de entidades
-//
-// Implementar las clases faltantes.
-//
-// Jerarquía esperada:
-//
-//   NamedEntity
-//   ├── Person
-//   ├── Organization
-//   │   └── University
-//   ├── Place
-//   └── Technology
-//       └── ProgrammingLanguage
-//
-// Luego de implementar las clases, este código debe compilar:
-//
-//   val entities: List[NamedEntity] = List(
-//     new Person("Alan Turing"),
-//     new University("MIT"),
-//     new ProgrammingLanguage("Scala"),
-//     new Place("San Francisco")
-//   )
-//   entities.foreach(e => println(e.describe))
-// =====================================================================
+
+ val entities: List[NamedEntity] = List(
+  new Person("Alan Turing"),
+  new University("MIT"),
+  new ProgrammingLanguage("Scala"),
+  new Place("San Francisco")
+  )
+   entities.foreach(e => println(e.describe))
+   // =====================================================================
