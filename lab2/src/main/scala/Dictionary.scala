@@ -18,6 +18,8 @@
  *   Python
  *   Haskell
  */
+import scala.io.Source
+
 object Dictionary {
 
   /**
@@ -43,17 +45,18 @@ object Dictionary {
     val listaLineas = source.getLines().toList
       .map { line =>
       entityType match {
-        case "Person"   => Person(line)
-        case "Place" => Place(line)
-        case "University" => University(line)
-        case "ProgrammingLanguage" => ProgrammingLanguage(line)
-        case "Technology" => Technology(line) 
-        case "Organization" => Organization(line) 
+        case "Person"   => new Person(line)
+        case "Place" => new Place(line)
+        case "University" => new University(line)
+        case "ProgrammingLanguage" => new ProgrammingLanguage(line)
+        case "Technology" => new Technology(line) 
+        case "Organization" => new Organization(line) 
         case _ => sys.error("Error: entityType does not exist")
         }
       }
       source.close()
       listaLineas
+  }
   /**
    * Carga todos los diccionarios disponibles y combina sus entidades.
    *
@@ -63,6 +66,12 @@ object Dictionary {
    *
    */
   def loadAll(): List[NamedEntity] = {
-    ???
+    val listPerson   = loadFromFile("data/people.txt", "Person")
+    val listUniversity = loadFromFile("data/universities.txt", "University")
+    val listProglenguange   = loadFromFile("data/languages.txt", "ProgrammingLanguage")
+    val listOrganization = loadFromFile("data/organizations.txt", "Organization")
+    val listPlace   = loadFromFile("data/places.txt", "Place")
+
+    listPerson ++ listUniversity ++ listProglenguange ++ listOrganization ++ listPlace
   }
 }
