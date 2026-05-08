@@ -37,19 +37,54 @@ object Dictionary {
    *   Para crear la clase correcta según el tipo se puede usar match:
    *
    */
-  def loadFromFile(filePath: String, entityType: String): List[NamedEntity] = {
-    ???
-  }
+  /* def loadFromFile(filePath: String, entityType: String): List[NamedEntity] = {
+    
+    Using(Source.fromFile(filePath)) { source =>
 
-  /**
-   * Carga todos los diccionarios disponibles y combina sus entidades.
-   *
-   * @return lista con todas las entidades de todos los diccionarios
-   *
-   * TODO (Ejercicio 2): Implementar este método.
-   *
-   */
+      source.getLines().toList.map { line =>
+        val name = line.trim
+
+        entityType match {
+          case "Person" =>
+            Person(name)
+
+          case "University" =>
+            University(name)
+
+          case "ProgrammingLanguage" =>
+            ProgrammingLanguage(name)
+
+          case "Place" =>
+            Place(name)
+
+          case "Organization" =>
+              Organization(name)
+          
+          case _ =>
+            throw new IllegalArgumentException(s"Unknown entity type: $entityType")
+        }
+      }
+
+    }.getOrElse(Nil)
+  } */
+def loadFromFile(filePath: String, entityType: String): List[NamedEntity] = {
+  val archivo = FileIO.readLines(filePath)
+  entityType match {
+    case "Person"              => archivo.map(elem => new Person(elem))
+    case "University"          => archivo.map(elem => new University(elem))
+    case "Organization"        => archivo.map(elem => new Organization(elem))
+    case "Place"               => archivo.map(elem => new Place(elem))
+    case "ProgrammingLanguage" => archivo.map(elem => new ProgrammingLanguage(elem))
+    case _                     => List.empty[NamedEntity]  // o simplemente Nil
+  }
+}
+   
   def loadAll(): List[NamedEntity] = {
-    ???
+    
+    loadFromFile("data/people.txt", "Person") :::
+    loadFromFile("data/universities.txt", "University") :::
+    loadFromFile("data/languages.txt", "ProgrammingLanguage") :::
+    loadFromFile("data/place.txt", "Place") :::
+    loadFromFile("data/organizations.txt", "Organization") 
   }
 }

@@ -35,7 +35,9 @@ object Analyzer {
    *                  )
    */
   def detectEntities(text: String, dictionary: List[NamedEntity]): List[NamedEntity] = {
-    ???
+    val palabras = text.toLowerCase.split("[^a-zA-Z0-9+#]")
+    dictionary.filter { entidad => palabras.contains(entidad.text.toLowerCase)
+    }
   }
 
   /**
