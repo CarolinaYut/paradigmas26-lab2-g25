@@ -35,7 +35,10 @@ object Analyzer {
    *                  )
    */
   def detectEntities(text: String, dictionary: List[NamedEntity]): List[NamedEntity] = {
-    ???
+    val newtext = text.replaceAll("\\p{Punct}", "")
+      .toLowerCase
+    val entrega = dictionary.filter(n => newtext.contains(n.text.toLowerCase))
+    entrega
   }
 
   /**
