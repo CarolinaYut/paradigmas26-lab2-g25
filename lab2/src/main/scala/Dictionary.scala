@@ -73,5 +73,6 @@ object Dictionary {
     val listPlace   = loadFromFile("data/places.txt", "Place")
 
     listPerson ++ listUniversity ++ listProglenguange ++ listOrganization ++ listPlace
+
   }
 }

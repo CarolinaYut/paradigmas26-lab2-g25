@@ -14,5 +14,4 @@ Clojure
 Erlang
 Elixir
 SQL
-C++
 Assembly
