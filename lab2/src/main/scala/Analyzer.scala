@@ -63,6 +63,17 @@ object Analyzer {
    *                 )
    */
   def countByType(entities: List[NamedEntity]): Map[String, Int] = {
-    ???
+    val entitiesTypeList = entities.map {n => n.entityType}
+    val result  = entitiesTypeList
+      .map { entidad =>  
+        (entidad , entitiesTypeList.count(t => t == entidad))
+        //es lo mismo q entidad -> entitiesTypeList.count(t => t == entidad)
+      }
+    result.toMap
   }
+  /* otra forma de resolverlo era esta --->
+  val entitiesTypeList = entities.map {n => n.entityType}
+  val result = entitiesTypeList.groupBy(identity).mapValues(_.size).toMap
+  result
+  */
 }
