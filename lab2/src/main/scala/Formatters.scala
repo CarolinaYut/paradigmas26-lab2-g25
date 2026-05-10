@@ -65,6 +65,13 @@ object Formatters {
    *     University: 2
    */
   def formatEntityStats(counts: Map[String, Int]): String = {
-    ???
+    val titulo =  "=== Estadísticas de entidades ==="
+    val caca = counts
+      .map{ case (entidad, namber) =>
+        entidad ++ ": "++ namber.toString ++ "\n"
+      }  
+    val cacona =caca.mkString
+    val devolver = titulo ++"\n"++ cacona 
+    devolver    
   }
 }
