@@ -74,4 +74,16 @@ object Formatters {
     val devolver = titulo ++"\n"++ entidadesString 
     devolver    
   }
+
+
+  def formatEntityStatsHierarchical(counts: Map[String, Int]): String = {
+  val estadisticas = counts
+    .toList
+    .sortBy(-_._2)
+    .map { case (tipo, cantidad) => s"$tipo: $cantidad" }
+    .mkString("\n")
+  
+    s"""=== Estadísticas jerárquicas ===
+    $estadisticas"""
+  }
 }

@@ -40,6 +40,11 @@ object Main {
     //   1. Recolectar TODAS las entidades detectadas en todos los posts
     //   2. Contar por tipo
     //   3. Mostrar el resumen
+  
+  
+  //IMPLEMENTACION DE PUNTO ESTRELLA
+  val countsHierarchical = Analyzer.countByTypeHierarchical(todasLasEntidades)
+  println(Formatters.formatEntityStatsHierarchical(countsHierarchical))
 
   }
 }
