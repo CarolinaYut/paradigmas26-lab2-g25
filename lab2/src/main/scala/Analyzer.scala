@@ -76,4 +76,11 @@ object Analyzer {
   val result = entitiesTypeList.groupBy(identity).mapValues(_.size).toMap
   result
   */
+
+  def countByTypeHierarchical(entities: List[NamedEntity]): Map[String, Int] = {
+    entities
+      .flatMap(e => e.entityType :: e.parentTypes)
+      .groupBy(tipo => tipo)
+      .map { case (tipo, lista) => tipo -> lista.size }
+  }
 }

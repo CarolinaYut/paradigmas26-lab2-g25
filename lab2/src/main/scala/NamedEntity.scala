@@ -1,6 +1,7 @@
 abstract class NamedEntity(val text: String) {
   def entityType: String
   def describe: String = s"[$entityType] $text"
+  def parentTypes: List[String] = List.empty
 }
 
 class Person(text: String) extends NamedEntity(text) {
@@ -13,6 +14,7 @@ class Organization(text: String) extends NamedEntity(text) {
 
 class University(text: String) extends Organization(text) {
   override def entityType = "University"
+  override def parentTypes = List("Organization")
 }
 
 class Place(text: String) extends NamedEntity(text) {
@@ -25,4 +27,5 @@ class Technology(text: String) extends NamedEntity(text) {
 
 class ProgrammingLanguage(text: String) extends Technology(text) {
   override def entityType = "ProgrammingLanguage"
+  override def parentTypes = List("Technology")
 }
