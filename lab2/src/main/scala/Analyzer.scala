@@ -35,10 +35,11 @@ object Analyzer {
    *                  )
    */
   def detectEntities(text: String, dictionary: List[NamedEntity]): List[NamedEntity] = {
-    val newtext = text.replaceAll("\\p{Punct}", "")
-      .toLowerCase
-    val entrega = dictionary.filter(n => newtext.contains(n.text.toLowerCase))
-    entrega
+    val textl = text.toLowerCase() //Transformo las palabras a minusculas
+    // Filtro todas las entidades que aparezcan en el texto y tomo la palabra completa
+    dictionary.filter(entidad =>
+    text.toLowerCase.matches(s".*\\b${entidad.text.toLowerCase}\\b.*") 
+    )
   }
 
   /**

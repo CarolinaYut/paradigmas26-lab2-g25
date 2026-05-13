@@ -49,10 +49,6 @@ object Main {
     //   1. Recolectar TODAS las entidades detectadas en todos los posts
     //   2. Contar por tipo
     //   3. Mostrar el resumen
-    /* se guarda en globaletities todas las entidades, como se logra esto:
-      se recorre la lista de titulos de todos los posts y en cada titulo
-      se se detecta las entidades, luego en vez de quedar una list[list[entidades]] 
-      con flatMap lo onvertimos en List[entidades asi lo toma countByType]*/
     val globalentities = allPosts.flatMap { case (url, titles) =>
       titles.flatMap{ title =>
         detectEntities(title, dictionary)
@@ -60,11 +56,10 @@ object Main {
     }
     val countbyT = Analyzer.countByType(globalentities)
     println(countbyT)
-  /* 
+
   //IMPLEMENTACION DE PUNTO ESTRELLA
-  val countsHierarchical = Analyzer.countByTypeHierarchical(todasLasEntidades)
+  val countsHierarchical = Analyzer.countByTypeHierarchical(globalentities)
   println(Formatters.formatEntityStatsHierarchical(countsHierarchical))
 
-   */
   }
 }
