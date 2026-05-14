@@ -41,9 +41,8 @@ object Dictionary {
    */
   def loadFromFile(filePath: String, entityType: String): List[NamedEntity] = {
 
-    val source =  Source.fromFile(filePath)
-    val listaLineas = source.getLines().toList
-      .map { line =>
+    val texts =  FileIO.readLines(filePath)
+      texts.map { line =>
       entityType match {
         case "Person"   => new Person(line)
         case "Place" => new Place(line)
@@ -54,8 +53,6 @@ object Dictionary {
         case _ => sys.error("Error: entityType does not exist")
         }
       }
-      source.close()
-      listaLineas
   }
   /**
    * Carga todos los diccionarios disponibles y combina sus entidades.
