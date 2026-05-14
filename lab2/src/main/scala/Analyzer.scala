@@ -35,7 +35,11 @@ object Analyzer {
    *                  )
    */
   def detectEntities(text: String, dictionary: List[NamedEntity]): List[NamedEntity] = {
-    ???
+    val textl = text.toLowerCase() //Transformo las palabras a minusculas
+    // Filtro todas las entidades que aparezcan en el texto y tomo la palabra completa
+    dictionary.filter(entidad =>
+    text.toLowerCase.matches(s".*\\b${entidad.text.toLowerCase}\\b.*") 
+    )
   }
 
   /**
@@ -60,6 +64,24 @@ object Analyzer {
    *                 )
    */
   def countByType(entities: List[NamedEntity]): Map[String, Int] = {
-    ???
+    val entitiesTypeList = entities.map {n => n.entityType}
+    val result  = entitiesTypeList
+      .map { entidad =>  
+        (entidad , entitiesTypeList.count(t => t == entidad))
+        //es lo mismo q entidad -> entitiesTypeList.count(t => t == entidad)
+      }
+    result.toMap
+  }
+  /* otra forma de resolverlo era esta --->
+  val entitiesTypeList = entities.map {n => n.entityType}
+  val result = entitiesTypeList.groupBy(identity).mapValues(_.size).toMap
+  result
+  */
+
+  def countByTypeHierarchical(entities: List[NamedEntity]): Map[String, Int] = {
+    entities
+      .flatMap(e => e.entityType :: e.parentTypes)
+      .groupBy(tipo => tipo)
+      .map { case (tipo, lista) => tipo -> lista.size }
   }
 }

@@ -31,7 +31,21 @@ object Formatters {
    *   Si no se detectaron entidades, mostrar un mensaje indicándolo.
    */
   def formatNERResult(postTitle: String, entities: List[NamedEntity]): String = {
-    ???
+    if(entities.isEmpty){
+      val title = s"Post: $postTitle"
+      val body = "(no se detectaron entidades)"
+      val result = title ++ "\n" ++ body
+      return result 
+    }
+    val cafe = entities
+      .map{ n =>
+        n.describe
+      }
+    val listaString = cafe.mkString("\n")
+    val title = s"Post: $postTitle"
+    val body = "Entidades detectadas: "
+    val result = title ++ "\n" ++ body ++ "\n" ++ listaString
+    result
   }
 
   /**
@@ -51,6 +65,25 @@ object Formatters {
    *     University: 2
    */
   def formatEntityStats(counts: Map[String, Int]): String = {
-    ???
+    val titulo =  "=== Estadísticas de entidades ==="
+    val tupladeentidades = counts
+      .map{ case (entidad, namber) =>
+        entidad ++ ": "++ namber.toString ++ "\n"
+      }  
+    val entidadesString =tupladeentidades.mkString
+    val devolver = titulo ++"\n"++ entidadesString 
+    devolver    
+  }
+
+
+  def formatEntityStatsHierarchical(counts: Map[String, Int]): String = {
+  val estadisticas = counts
+    .toList
+    .sortBy(-_._2)
+    .map { case (tipo, cantidad) => s"$tipo: $cantidad" }
+    .mkString("\n")
+  
+    s"""=== Estadísticas jerárquicas ===
+    $estadisticas"""
   }
 }
